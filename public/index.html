@@ -10,18 +10,15 @@
 
     <link rel="shortcut icon" href="favicon.webp" />
 
-    <!-- Scramjet core (proxy functionality stays the same) -->
     <script src="/scram/scramjet.all.js"></script>
     <script src="/baremux/index.js"></script>
 
-    <!-- Fonts / styles -->
     <link
       href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Roboto:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="index.css" />
 
-    <!-- App scripts (unchanged proxy wiring) -->
     <script src="register-sw.js" defer></script>
     <script src="search.js" defer></script>
     <script src="index.js" defer></script>
@@ -29,7 +26,7 @@
 
   <body>
     <div class="evr-root">
-      <!-- Fake browser chrome bar -->
+      <!-- Browser chrome bar -->
       <div class="evr-chrome">
         <div class="chrome-left">
           <button class="chrome-btn" aria-hidden="true"></button>
@@ -38,62 +35,79 @@
         </div>
         <div class="chrome-omnibox">
           <span class="chrome-lock"></span>
-          <span class="chrome-text">EVR Proxy • powered by Scramjet</span>
+          <span id="chrome-omnibox-text" class="chrome-text">EVR Proxy • Powered by Scramjet</span>
         </div>
         <div class="chrome-right">
           <span class="chrome-dot"></span>
         </div>
       </div>
 
-      <!-- New tab content -->
-      <main class="evr-main">
-        <section class="evr-center">
-          <div class="evr-time-row">
-            <div id="evr-clock" class="evr-clock">--:--</div>
-            <div class="evr-battery" aria-label="Session battery">
-              <div class="evr-battery-shell">
-                <div
-                  id="evr-battery-fill"
-                  class="evr-battery-fill battery-green"
-                ></div>
+      <!-- Tab bar -->
+      <div class="evr-tabs">
+        <div class="tab-list">
+          <div id="tab-new" class="tab active" data-tab="new" title="New Tab">
+            <span class="tab-label">New Tab</span>
+            <button class="tab-close" aria-label="Close" tabindex="-1">×</button>
+          </div>
+          <button class="tab-add" aria-label="New tab">+</button>
+        </div>
+      </div>
+
+      <!-- Viewport: new tab content OR proxy frame -->
+      <div class="evr-viewport">
+        <main id="evr-newtab" class="evr-main">
+          <section class="evr-center">
+            <div class="evr-time-row">
+              <div id="evr-clock" class="evr-clock">--:--</div>
+              <div class="evr-battery" aria-label="Battery">
+                <div class="evr-battery-shell">
+                  <div
+                    id="evr-battery-fill"
+                    class="evr-battery-fill battery-green"
+                  ></div>
+                </div>
+                <div class="evr-battery-cap"></div>
+                <span id="evr-battery-text" class="evr-battery-text">--%</span>
+                <span id="evr-battery-charging" class="evr-battery-charging"></span>
               </div>
-              <div class="evr-battery-cap"></div>
-              <span id="evr-battery-text" class="evr-battery-text">100%</span>
             </div>
-          </div>
 
-          <!-- EVR search / URL bar (wired to Scramjet) -->
-          <form id="sj-form" class="evr-search-card">
-            <input
-              id="sj-search-engine"
-              value="https://www.google.com/search?q=%s"
-              type="hidden"
-            />
-            <div class="evr-search-inner">
-              <span class="evr-search-icon"></span>
+            <form id="sj-form" class="evr-search-card">
               <input
-                id="sj-address"
-                type="text"
-                placeholder="Search or enter a site URL"
-                autocomplete="off"
+                id="sj-search-engine"
+                value="https://www.google.com/search?q=%s"
+                type="hidden"
               />
+              <div class="evr-search-inner">
+                <span class="evr-search-icon"></span>
+                <input
+                  id="sj-address"
+                  type="text"
+                  placeholder="Search or enter a site URL"
+                  autocomplete="off"
+                />
+              </div>
+            </form>
+
+            <p class="evr-hint">
+              EVR will auto‑detect URLs vs searches • powered by Scramjet core.
+            </p>
+
+            <div class="evr-status">
+              <p id="sj-error" class="status-error"></p>
+              <pre id="sj-error-code" class="status-code"></pre>
             </div>
-          </form>
+          </section>
 
-          <p class="evr-hint">
-            EVR will auto‑detect URLs vs searches • powered by Scramjet core.
-          </p>
+          <footer class="evr-footer">
+            <span>EVR Proxy &mdash; powered by Scramjet • MW 2025</span>
+          </footer>
+        </main>
 
-          <div class="evr-status">
-            <p id="sj-error" class="status-error"></p>
-            <pre id="sj-error-code" class="status-code"></pre>
-          </div>
-        </section>
-
-        <footer class="evr-footer">
-          <span>EVR Proxy &mdash; Powered by Scramjet </span>
-        </footer>
-      </main>
+        <div id="evr-frame-wrap" class="evr-frame-wrap" style="display: none;">
+          <!-- Scramjet frame injected here -->
+        </div>
+      </div>
     </div>
   </body>
 </html>
