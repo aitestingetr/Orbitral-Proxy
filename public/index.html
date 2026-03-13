@@ -26,7 +26,6 @@
 
   <body>
     <div class="evr-root">
-      <!-- Browser chrome bar -->
       <div class="evr-chrome">
         <div class="chrome-left">
           <button class="chrome-btn" aria-hidden="true"></button>
@@ -35,25 +34,19 @@
         </div>
         <div class="chrome-omnibox">
           <span class="chrome-lock"></span>
-          <span id="chrome-omnibox-text" class="chrome-text">Orbitral Proxy • Powered by Scramjet</span>
+          <span id="chrome-omnibox-text" class="chrome-text">Orbitral Proxy • powered by Scramjet</span>
         </div>
         <div class="chrome-right">
           <span class="chrome-dot"></span>
         </div>
       </div>
 
-      <!-- Tab bar -->
       <div class="evr-tabs">
-        <div class="tab-list">
-          <div id="tab-new" class="tab active" data-tab="new" title="New Tab">
-            <span class="tab-label">New Tab</span>
-            <button class="tab-close" aria-label="Close" tabindex="-1">×</button>
-          </div>
-          <button class="tab-add" aria-label="New tab">+</button>
+        <div class="tab-list" id="tab-list">
+          <button class="tab-add" id="tab-add-btn" aria-label="New tab">+</button>
         </div>
       </div>
 
-      <!-- Viewport: new tab content OR proxy frame -->
       <div class="evr-viewport">
         <main id="evr-newtab" class="evr-main">
           <section class="evr-center">
@@ -90,7 +83,7 @@
             </form>
 
             <p class="evr-hint">
-              Orbitral Proxy 
+              Proxy by the G.GUI project
             </p>
 
             <div class="evr-status">
@@ -100,13 +93,11 @@
           </section>
 
           <footer class="evr-footer">
-            <span>Orbitral Proxy &mdash; powered by Scramjet </span>
+            <span>Orbitral &mdash; powered by Scramjet</span>
           </footer>
         </main>
 
-        <div id="evr-frame-wrap" class="evr-frame-wrap" style="display: none;">
-          <!-- Scramjet frame injected here -->
-        </div>
+        <div id="evr-frames" class="evr-frames"></div>
       </div>
     </div>
   </body>
